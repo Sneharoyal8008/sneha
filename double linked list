@@ -1,0 +1,63 @@
+Double linked list
+
+
+#include <iostream>
+
+template <typename T>
+class Node {
+public:
+    T data;
+    Node* prev;
+    Node* next;
+    
+    Node(T value) : data(value), prev(nullptr), next(nullptr) {}
+};
+
+template <typename T>
+class DoublyLinkedList {
+private:
+    Node<T>* head;
+    Node<T>* tail;
+public:
+    DoublyLinkedList() : head(nullptr), tail(nullptr) {}
+    
+    void insertFront(T value) {
+        Node<T>* newNode = new Node<T>(value);
+        if (!head) {
+            head = tail = newNode;
+        } else {
+            newNode->next = head;
+            head->prev = newNode;
+            head = newNode;
+        }
+    }
+    
+    void insertBack(T value) {
+        Node<T>* newNode = new Node<T>(value);
+        if (!tail) {
+            head = tail = newNode;
+        } else {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        }
+    }
+    
+    void display() {
+        Node<T>* current = head;
+        while (current) {
+            std::cout << current->data << " ";
+            current = current->next;
+        }
+        std::cout << std::endl;
+    }
+};
+
+int main() {
+    DoublyLinkedList<int> dll;
+    dll.insertFront(1);
+    dll.insertBack(2);
+    dll.insertBack(3);
+    dll.display();
+    return 0;
+}
